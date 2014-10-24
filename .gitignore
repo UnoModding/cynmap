@@ -1,0 +1,9 @@
+# Ignore everything
+/*
+/*/
+
+# Except These
+!/LICENSE.txt
+!/.gitignore
+!/pom.xml
+!/src/

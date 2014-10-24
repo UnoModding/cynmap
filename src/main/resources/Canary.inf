@@ -1,0 +1,4 @@
+name=cynmap
+main-class=unomodding.canary.cynmap.CynmapPlugin
+author=UnoModding
+version=0.1
