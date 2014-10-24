@@ -4,6 +4,8 @@
 
 # Except These
 !/LICENSE.txt
+!/README.md
 !/.gitignore
 !/pom.xml
+!/eclipse_formatter.xml
 !/src/
