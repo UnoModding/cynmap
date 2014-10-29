@@ -1,4 +1,4 @@
-# All paths in this configuration file are relative to Dynmap's data-folder: minecraft_server/plugins/dynmap/
+# All paths in this configuration file are relative to Dynmap's data-folder: minecraft_server/cynmap/
 
 # All map templates are defined in the templates directory
 # To use the HDMap very-low-res (2 ppb) map templates as world defaults, set value to vlowres
@@ -15,7 +15,7 @@
 #   The definitions of these templates are in normal-hi_boost_xhi.txt, nether-hi_boost_xhi.txt, and the_end-hi_boost_xhi.txt
 deftemplatesuffix: hires
 
-# Map storage scheme: only uncommoent one 'type' value
+# Map storage scheme: only uncomment one 'type' value
 #  filetree: classic and default scheme: tree of files, with all map data under the directory indicated by 'tilespath' setting
 #  sqlite: single SQLite database file (this can get VERY BIG), located at 'dbfile' setting (default is file dynmap.db in data directory)
 #  mysql: MySQL database, at hostname:port in database, accessed via userid with password
@@ -33,7 +33,7 @@ storage:
   #userid: dynmap
   #password: dynmap
   #prefix: ""
-  
+
 components:
   - class: org.dynmap.ClientConfigurationComponent
   
@@ -165,7 +165,7 @@ components:
   - class: org.dynmap.ClientComponent
     type: timeofdayclock
     showdigitalclock: true
-    showweather: true
+    #showweather: true
   # Mouse pointer world coordinate display
   - class: org.dynmap.ClientComponent
     type: coord
@@ -250,7 +250,7 @@ block-id-alias:
 #    "14": 1
 #    "15": 1
 #    "16": 1
-  
+
 # Default image format for HDMaps (png, jpg, jpg-q75, jpg-q80, jpg-q85, jpg-q90, jpg-q95, jpg-q100)
 # Has no effect on maps with explicit format settings
 image-format: png
@@ -281,24 +281,15 @@ skin-url: "http://s3.amazonaws.com/MinecraftSkins/%player%.png"
 #   'newnorth' is used to rotate maps and rose (requires fullrender of any HDMap map - same as 'newrose' for FlatMap or KzedMap)
 compass-mode: newnorth
 
+# Triggers for automatic updates : blockupdate-with-id is debug for breaking down updates by ID:meta
+# To disable, set just 'none' and comment/delete the rest
 render-triggers:
-  #- playermove
-  #- playerjoin
-  - blockplaced
-  - blockbreak
-  - leavesdecay
-  - blockburn
-  - chunkgenerated
-  - blockformed
-  - blockfaded
-  - blockspread
-  - pistonmoved
-  - explosion
-  #- blockfromto
-  #- blockphysics
-  - structuregrow
-  - blockgrow
-  #- blockredstone
+  - blockupdate
+  #- blockupdate-with-id
+  #- lightingupdate
+  - chunkpopulate
+  - chunkgenerate
+  #- none
 
 # Title for the web page - if not specified, defaults to the server's name (unless it is the default of 'Unknown Server')
 #webpage-title: "My Awesome Server Map"
@@ -368,11 +359,6 @@ showplayerfacesinmenu: true
 # Control whether players that are hidden or not on current map are grayed out (true=yes)
 grayplayerswhenhidden: true
 
-# Use player permissions to order player list: first to last, players are ordered by first permission listed that they have
-# That is, anyone with first listed permission goes before anyone with second, etc, with users with none of the nodes going last
-player-sort-permission-nodes:
-  - bukkit.command.op
-  
 # Set sidebaropened: 'true' to pin menu sidebar opened permanently, 'pinned' to default the sidebar to pinned, but allow it to unpin
 #sidebaropened: true
 
@@ -386,10 +372,8 @@ trusted-proxies:
   - "127.0.0.1"
   - "0:0:0:0:0:0:0:1"
   
-# Join/quit message format for web chat: set to "" to disable notice on web UI
 joinmessage: "%playername% joined"
 quitmessage: "%playername% quit"
-
 spammessage: "You may only chat once every %interval% seconds."
 # format for messages from web: %playername% substitutes sender ID (typically IP), %message% includes text
 webmsgformat: "&color;2[WEB] %playername%: &color;f%message%"
@@ -413,9 +397,6 @@ persist-ids-by-ip: true
 
 # If true, map text to cyrillic
 cyrillic-support: false
-
-# If true, coordinates will be rounded
-round-coordinates: true
 
 # Messages to customize
 msg:
@@ -451,20 +432,12 @@ spout:
     # can result in stale textures if originals are updated - delete files in texturepacks/standard/spoout
     # to clean cached textures and force reload on next startup)
     use-existing-textures: true
-    
-# Customization commands - allows scripts to be run before/after certain events
-custom-commands:
-    image-updates:
-        # Command run just before any image file is written or updated: run with single parameter with fully qualified file name
-        preupdatecommand: ""
-        # Command run just after any image file is written or updated: run with single parameter with fully qualified file name
-        postupdatecommand: ""
 
 # Snapshot cache size, in chunks
 snapshotcachesize: 500
 # Snapshot cache uses soft references (true), else weak references (false)
 soft-ref-cache: true
-        
+    
 # Set to true to enable verbose startup messages - can help with debugging map configuration problems
 # Set to false for a much quieter startup log
 verbose: false

@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package unomodding.canary.cynmap.data;
+package unomodding.canary.cynmap;
 
-import java.io.File;
+import net.canarymod.hook.HookHandler;
+import net.canarymod.plugin.PluginListener;
 
-import net.canarymod.Canary;
-
-public class Constants
+public class CynmapServerListener implements PluginListener
 {
-    public static final File canary = Canary.getWorkingDirectory();
-    public static final File dataFolder = new File(canary, "cynmap");
 }
