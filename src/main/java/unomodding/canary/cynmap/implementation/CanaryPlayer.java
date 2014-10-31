@@ -47,8 +47,7 @@ public class CanaryPlayer implements DynmapPlayer
 
     public boolean isOp()
     {
-        //return player.isOperator();
-        return false;
+        return player.isOperator();
     }
 
     public void sendMessage(String msg)

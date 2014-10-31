@@ -17,6 +17,9 @@ package unomodding.canary.cynmap;
 
 import java.io.File;
 
+import net.canarymod.Canary;
+import net.canarymod.plugin.Plugin;
+
 import org.dynmap.DynmapCommonAPI;
 import org.dynmap.DynmapCommonAPIListener;
 import org.dynmap.DynmapCore;
@@ -24,14 +27,13 @@ import org.dynmap.markers.MarkerAPI;
 
 import unomodding.canary.cynmap.data.Constants;
 import unomodding.canary.cynmap.implementation.CanaryServer;
-import net.canarymod.Canary;
-import net.canarymod.plugin.Plugin;
 
 public class CynmapPlugin extends Plugin implements DynmapCommonAPI
 {
     private DynmapCore core;
     private CanaryEnableCoreCallback config = new CanaryEnableCoreCallback();
 
+    @Override
     public boolean enable()
     {
         // init data folder
@@ -57,7 +59,7 @@ public class CynmapPlugin extends Plugin implements DynmapCommonAPI
         }
         // Core is ready - notify API availability
         DynmapCommonAPIListener.apiInitialized(this);
-        
+
         // Enable core
         if (!core.enableCore(config)) {
             return false;
@@ -66,6 +68,7 @@ public class CynmapPlugin extends Plugin implements DynmapCommonAPI
         return true;
     }
 
+    @Override
     public void disable()
     {
         // Core is being disabled - notify API disable

@@ -15,6 +15,7 @@
  */
 package unomodding.canary.cynmap.implementation;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -23,6 +24,7 @@ import java.util.concurrent.Future;
 import net.canarymod.Canary;
 import net.canarymod.api.Server;
 import net.canarymod.api.entity.living.humanoid.Player;
+import net.canarymod.bansystem.Ban;
 import net.canarymod.chat.TextFormat;
 import net.canarymod.config.Configuration;
 
@@ -99,7 +101,13 @@ public class CanaryServer extends DynmapServerInterface
     @Override
     public Set<String> getIPBans()
     {
-        return null;
+        Set<String> ipBans = new HashSet<String>();
+        for (Ban ban : Canary.bans().getAllBans()) {
+            if (Canary.bans().isIpBanned(ban.getIp())) {
+                ipBans.add(ban.getIp());
+            }
+        }
+        return ipBans;
     }
 
     @Override

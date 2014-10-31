@@ -15,7 +15,6 @@
  */
 package unomodding.canary.cynmap;
 
-import net.canarymod.hook.HookHandler;
 import net.canarymod.plugin.PluginListener;
 
 public class CynmapServerListener implements PluginListener
