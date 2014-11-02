@@ -24,6 +24,7 @@ import org.dynmap.DynmapCommonAPI;
 import org.dynmap.DynmapCommonAPIListener;
 import org.dynmap.DynmapCore;
 import org.dynmap.markers.MarkerAPI;
+import org.dynmap.modsupport.ModSupportImpl;
 
 import unomodding.canary.cynmap.data.Constants;
 import unomodding.canary.cynmap.implementation.CanaryServer;
@@ -31,7 +32,12 @@ import unomodding.canary.cynmap.implementation.CanaryServer;
 public class CynmapPlugin extends Plugin implements DynmapCommonAPI
 {
     private DynmapCore core;
+    private CanaryServer server = new CanaryServer(Canary.getServer());
     private CanaryEnableCoreCallback config = new CanaryEnableCoreCallback();
+    
+    public CynmapPlugin() {
+        ModSupportImpl.init();
+    }
 
     @Override
     public boolean enable()
@@ -48,10 +54,11 @@ public class CynmapPlugin extends Plugin implements DynmapCommonAPI
         core.setPluginVersion(getDescriptor().getVersion(), "CanaryLib");
         core.setMinecraftVersion(Canary.getServer().getServerVersion());
         core.setDataFolder(Constants.dataFolder);
-        core.setServer(new CanaryServer(Canary.getServer()));
+        core.setServer(server);
+        core.setTriggerDefault(null);
+        core.setBiomeNames(null);
         core.setBlockNames(null);
         core.setBlockMaterialMap(null);
-        core.setBiomeNames(null);
 
         // Load configuration
         if (!core.initConfiguration(config)) {
@@ -65,6 +72,10 @@ public class CynmapPlugin extends Plugin implements DynmapCommonAPI
             return false;
         }
         core.serverStarted();
+        
+        // Register listener
+        Canary.hooks().registerListener(new CynmapListener(this), this);
+        
         return true;
     }
 
@@ -76,6 +87,10 @@ public class CynmapPlugin extends Plugin implements DynmapCommonAPI
 
         // Disable core
         core.disableCore();
+    }
+    
+    public DynmapCore getCore() {
+        return core;
     }
 
     public MarkerAPI getMarkerAPI()

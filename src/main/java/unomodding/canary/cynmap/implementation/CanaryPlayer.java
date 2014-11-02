@@ -35,9 +35,9 @@ public class CanaryPlayer implements DynmapPlayer
         return player.hasPermission(perm);
     }
 
-    public boolean hasPrivilege(String arg0)
+    public boolean hasPrivilege(String priv)
     {
-        return false;
+        return player.hasPermission(priv);
     }
 
     public boolean isConnected()

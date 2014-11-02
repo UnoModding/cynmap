@@ -29,20 +29,20 @@ public class CanaryWorld extends DynmapWorld
 {
     private World world;
     private boolean skylight;
-    private String env;
+    private DimensionType env;
     private DynmapLocation spawnloc = new DynmapLocation();
 
     public CanaryWorld(World world) {
         super(world.getName(), world.getHeight(), 0);
         this.world = world;
-        this.env = world.getType().getName();
-        skylight = (env == DimensionType.NORMAL.getName());
+        this.env = world.getType();
+        skylight = (env == DimensionType.NORMAL);
     }
 
     @Override
     public boolean isNether()
     {
-        return env == DimensionType.NETHER.getName();
+        return env == DimensionType.NETHER;
     }
 
     @Override
@@ -79,13 +79,13 @@ public class CanaryWorld extends DynmapWorld
     @Override
     public boolean isLoaded()
     {
-        return (world != null);
+        return world != null;
     }
 
     @Override
     public void setWorldUnloaded()
     {
-        getSpawnLocation(); /* Remember spawn location before unload */
+        getSpawnLocation(); // Remember spawn location before unload
         world = null;
     }
 
@@ -124,7 +124,7 @@ public class CanaryWorld extends DynmapWorld
     @Override
     public String getEnvironment()
     {
-        return env;
+        return env.getName();
     }
 
     @Override

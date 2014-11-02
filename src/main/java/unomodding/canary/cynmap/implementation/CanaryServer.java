@@ -29,6 +29,7 @@ import net.canarymod.chat.TextFormat;
 import net.canarymod.config.Configuration;
 
 import org.dynmap.DynmapChunk;
+import org.dynmap.DynmapCommonAPIListener;
 import org.dynmap.DynmapWorld;
 import org.dynmap.common.DynmapListenerManager.EventType;
 import org.dynmap.common.DynmapPlayer;
@@ -83,7 +84,7 @@ public class CanaryServer extends DynmapServerInterface
     @Override
     public int getBlockIDAt(String wname, int x, int y, int z)
     {
-        return server.getWorld(wname).getBlockAt(x, y, z).getIdDropped();
+        return server.getWorld(wname).getBlockAt(x, y, z).getTypeId();
     }
 
     @Override
@@ -119,7 +120,11 @@ public class CanaryServer extends DynmapServerInterface
     @Override
     public DynmapPlayer getOfflinePlayer(String player)
     {
-        return new CanaryPlayer(server.getPlayer(player));
+        Player p = Canary.getServer().getPlayer(player);
+        if (p != null) {
+            return new CanaryPlayer(p);
+        }
+        return null;
     }
 
     @Override
@@ -137,7 +142,11 @@ public class CanaryServer extends DynmapServerInterface
     @Override
     public DynmapPlayer getPlayer(String player)
     {
-        return new CanaryPlayer(server.getPlayer(player));
+        Player p = Canary.getServer().getPlayer(player);
+        if (p != null) {
+            return new CanaryPlayer(p);
+        }
+        return null;
     }
 
     @Override
@@ -197,7 +206,7 @@ public class CanaryServer extends DynmapServerInterface
     @Override
     public boolean sendWebChatEvent(String source, String name, String msg)
     {
-        return false;
+        return DynmapCommonAPIListener.fireWebChatEvent(source, name, msg);
     }
 
     @Override
