@@ -19,8 +19,16 @@ import java.io.File;
 
 import net.canarymod.Canary;
 
-public class Constants
-{
+public class Constants {
+    // Canary
     public static final File canary = Canary.getWorkingDirectory();
+    // cynmap
     public static final File dataFolder = new File(canary, "cynmap");
+
+    public static void checkDirs() {
+        File[] folders = new File[] { dataFolder };
+        for (File f : folders) {
+            f.mkdirs();
+        }
+    }
 }

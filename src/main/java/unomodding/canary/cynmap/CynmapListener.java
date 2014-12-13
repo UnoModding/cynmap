@@ -26,35 +26,30 @@ import net.canarymod.hook.system.LoadWorldHook;
 import net.canarymod.hook.system.UnloadWorldHook;
 import net.canarymod.plugin.PluginListener;
 
-public class CynmapListener implements PluginListener
-{
+public class CynmapListener implements PluginListener {
     private CynmapPlugin plugin;
 
     public CynmapListener(CynmapPlugin plugin) {
         this.plugin = plugin;
     }
-    
+
     @HookHandler
-    public void onWorldLoad(LoadWorldHook hook)
-    {
+    public void onWorldLoad(LoadWorldHook hook) {
         plugin.getCore().listenerManager.processWorldEvent(EventType.WORLD_LOAD, new CanaryWorld(hook.getWorld()));
     }
-    
+
     @HookHandler
-    public void onWorldUnload(UnloadWorldHook hook)
-    {
+    public void onWorldUnload(UnloadWorldHook hook) {
         plugin.getCore().listenerManager.processWorldEvent(EventType.WORLD_UNLOAD, new CanaryWorld(hook.getWorld()));
     }
-    
+
     @HookHandler
-    public void onPlayerJoin(ConnectionHook hook)
-    {
+    public void onPlayerJoin(ConnectionHook hook) {
         plugin.getCore().listenerManager.processPlayerEvent(EventType.PLAYER_JOIN, new CanaryPlayer(hook.getPlayer()));
     }
-    
+
     @HookHandler
-    public void onPlayerQuit(DisconnectionHook hook)
-    {
+    public void onPlayerQuit(DisconnectionHook hook) {
         plugin.getCore().listenerManager.processPlayerEvent(EventType.PLAYER_QUIT, new CanaryPlayer(hook.getPlayer()));
     }
 }

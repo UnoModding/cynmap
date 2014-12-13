@@ -17,116 +17,96 @@ package unomodding.canary.cynmap.implementation;
 
 import java.net.InetSocketAddress;
 
+import net.canarymod.Canary;
 import net.canarymod.api.entity.living.humanoid.Player;
 
 import org.dynmap.DynmapLocation;
 import org.dynmap.common.DynmapPlayer;
 
-public class CanaryPlayer implements DynmapPlayer
-{
+public class CanaryPlayer implements DynmapPlayer {
     private Player player;
 
     public CanaryPlayer(Player player) {
         this.player = player;
     }
 
-    public boolean hasPermissionNode(String perm)
-    {
+    public boolean hasPermissionNode(String perm) {
         return player.hasPermission(perm);
     }
 
-    public boolean hasPrivilege(String priv)
-    {
+    public boolean hasPrivilege(String priv) {
         return player.hasPermission(priv);
     }
 
-    public boolean isConnected()
-    {
+    public boolean isConnected() {
         return player.isOnline();
     }
 
-    public boolean isOp()
-    {
-        return player.isOperator();
+    public boolean isOp() {
+        return Canary.ops().isOpped(player);
     }
 
-    public void sendMessage(String msg)
-    {
+    public void sendMessage(String msg) {
         player.message(msg);
     }
 
-    public InetSocketAddress getAddress()
-    {
-        return null;
+    public InetSocketAddress getAddress() {
+        return new InetSocketAddress(player.getIP(), 0);
     }
 
-    public int getArmorPoints()
-    {
+    public int getArmorPoints() {
         return 0;
     }
 
-    public DynmapLocation getBedSpawnLocation()
-    {
+    public DynmapLocation getBedSpawnLocation() {
         return new CanaryLocation(player.getSpawnPosition());
     }
 
-    public String getDisplayName()
-    {
+    public String getDisplayName() {
         return player.getDisplayName();
     }
 
-    public long getFirstLoginTime()
-    {
+    public long getFirstLoginTime() {
         return 0;
     }
 
-    public int getHealth()
-    {
+    public int getHealth() {
+        return Math.round(player.getHealth());
+    }
+
+    public long getLastLoginTime() {
         return 0;
     }
 
-    public long getLastLoginTime()
-    {
-        return 0;
-    }
-
-    public DynmapLocation getLocation()
-    {
+    public DynmapLocation getLocation() {
         return new CanaryLocation(player.getLocation());
     }
 
-    public String getName()
-    {
+    public String getName() {
         return player.getName();
     }
 
-    public int getSortWeight()
-    {
+    public int getSortWeight() {
         return 0;
     }
 
-    public String getWorld()
-    {
+    public String getWorld() {
         return player.getWorld().getName();
     }
 
-    public boolean isInvisible()
-    {
+    public boolean isInvisible() {
         return player.isInvisible();
     }
 
-    public boolean isOnline()
-    {
+    public boolean isOnline() {
         return player.isOnline();
     }
 
-    public boolean isSneaking()
-    {
+    public boolean isSneaking() {
         return player.isSneaking();
     }
 
-    public void setSortWeight(int arg0)
-    {
+    public void setSortWeight(int arg0) {
 
     }
 }

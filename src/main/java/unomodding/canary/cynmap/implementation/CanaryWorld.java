@@ -25,29 +25,26 @@ import org.dynmap.DynmapLocation;
 import org.dynmap.DynmapWorld;
 import org.dynmap.utils.MapChunkCache;
 
-public class CanaryWorld extends DynmapWorld
-{
+public class CanaryWorld extends DynmapWorld {
     private World world;
     private boolean skylight;
     private DimensionType env;
     private DynmapLocation spawnloc = new DynmapLocation();
 
     public CanaryWorld(World world) {
-        super(world.getName(), world.getHeight(), 0);
+        super(world.getFqName(), world.getHeight(), 0);
         this.world = world;
         this.env = world.getType();
         skylight = (env == DimensionType.NORMAL);
     }
 
     @Override
-    public boolean isNether()
-    {
+    public boolean isNether() {
         return env == DimensionType.NETHER;
     }
 
     @Override
-    public DynmapLocation getSpawnLocation()
-    {
+    public DynmapLocation getSpawnLocation() {
         if (world != null) {
             spawnloc = new CanaryLocation(world.getSpawnLocation());
         }
@@ -55,8 +52,7 @@ public class CanaryWorld extends DynmapWorld
     }
 
     @Override
-    public long getTime()
-    {
+    public long getTime() {
         if (world != null) {
             return world.getTotalTime();
         } else {
@@ -65,33 +61,28 @@ public class CanaryWorld extends DynmapWorld
     }
 
     @Override
-    public boolean hasStorm()
-    {
+    public boolean hasStorm() {
         return false;
     }
 
     @Override
-    public boolean isThundering()
-    {
+    public boolean isThundering() {
         return world.isThundering();
     }
 
     @Override
-    public boolean isLoaded()
-    {
+    public boolean isLoaded() {
         return world != null;
     }
 
     @Override
-    public void setWorldUnloaded()
-    {
+    public void setWorldUnloaded() {
         getSpawnLocation(); // Remember spawn location before unload
         world = null;
     }
 
     @Override
-    public int getLightLevel(int x, int y, int z)
-    {
+    public int getLightLevel(int x, int y, int z) {
         if (world != null) {
             return world.getLightLevelAt(x, y, z);
         } else {
@@ -100,8 +91,7 @@ public class CanaryWorld extends DynmapWorld
     }
 
     @Override
-    public int getHighestBlockYAt(int x, int z)
-    {
+    public int getHighestBlockYAt(int x, int z) {
         if (world != null) {
             return world.getHighestBlockAt(x, z);
         } else {
@@ -110,26 +100,22 @@ public class CanaryWorld extends DynmapWorld
     }
 
     @Override
-    public boolean canGetSkyLightLevel()
-    {
+    public boolean canGetSkyLightLevel() {
         return skylight && (world != null);
     }
 
     @Override
-    public int getSkyLightLevel(int x, int y, int z)
-    {
+    public int getSkyLightLevel(int x, int y, int z) {
         return 0;
     }
 
     @Override
-    public String getEnvironment()
-    {
+    public String getEnvironment() {
         return env.getName();
     }
 
     @Override
-    public MapChunkCache getChunkCache(List<DynmapChunk> chunks)
-    {
+    public MapChunkCache getChunkCache(List<DynmapChunk> chunks) {
         return null;
     }
 }

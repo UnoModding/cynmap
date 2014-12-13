@@ -15,12 +15,19 @@
  */
 package unomodding.canary.cynmap.implementation;
 
-import net.canarymod.api.world.position.Location;
+import net.canarymod.tasks.ServerTask;
+import net.canarymod.tasks.TaskOwner;
 
-import org.dynmap.DynmapLocation;
+public class TaskBuilder extends ServerTask {
+    public Runnable runnable;
 
-public class CanaryLocation extends DynmapLocation {
-    public CanaryLocation(Location loc) {
-        super(loc.getWorldName(), loc.getX(), loc.getY(), loc.getZ());
+    public TaskBuilder(Runnable runnable, TaskOwner owner, long delay, boolean continuous) {
+        super(owner, delay, continuous);
+        this.runnable = runnable;
+    }
+
+    @Override
+    public void run() {
+        runnable.run();
     }
 }
