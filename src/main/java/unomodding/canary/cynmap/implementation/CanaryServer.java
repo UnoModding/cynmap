@@ -31,8 +31,8 @@ import net.canarymod.exceptions.InvalidPluginException;
 import net.canarymod.exceptions.PluginLoadFailedException;
 import net.canarymod.logger.Logman;
 import net.canarymod.plugin.Plugin;
-import net.canarymod.tasks.ServerTask;
 
+import net.visualillusionsent.utils.TaskManager;
 import org.dynmap.DynmapChunk;
 import org.dynmap.DynmapCommonAPIListener;
 import org.dynmap.DynmapWorld;
@@ -58,7 +58,7 @@ public class CanaryServer extends DynmapServerInterface {
 
     @Override
     public <T> Future<T> callSyncMethod(Callable<T> task) {
-        return null;
+        return TaskManager.submitTask(task);
     }
 
     @Override
@@ -203,8 +203,7 @@ public class CanaryServer extends DynmapServerInterface {
 
     @Override
     public void scheduleServerTask(Runnable run, long delay) {
-        ServerTask serverTask = new TaskBuilder(run, plugin, delay, false);
-        server.addSynchronousTask(serverTask);
+        TaskManager.scheduleDelayedTaskInMillis(run, delay*50);
     }
 
     @Override
